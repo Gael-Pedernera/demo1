@@ -1,0 +1,16 @@
+<main class="student-feature-shell">
+  <h1>Historial y Rivales</h1>
+
+  <p *ngIf="!data && !error">Cargando datos...</p>
+
+  <p *ngIf="error" role="alert">
+    {{ error }}
+  </p>
+
+  <section *ngIf="data as roster">
+    <h2>Datos recibidos del backend</h2>
+    <p>Cantidad de héroes: {{ roster.count }}</p>
+
+    <pre>{{ roster | json }}</pre>
+  </section>
+</main>

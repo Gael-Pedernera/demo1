@@ -1,0 +1,68 @@
+:host {
+  display: block;
+}
+
+.student-feature-shell {
+  min-height: 100%;
+}
+
+.portrait-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  align-content: start;
+  gap: 5px;
+  padding: 8px 0 5px;
+}
+
+.portrait-cell {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 2px solid #1a2636;
+  border-radius: 2px;
+  background: #09121c;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.portrait-cell img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+  background: #101a28;
+}
+
+.portrait-name {
+  display: block;
+  min-height: 19px;
+  padding: 3px 2px 4px;
+  overflow: hidden;
+  color: #cbd3df;
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-size: calc(9px * var(--ui-font-scale));
+  letter-spacing: 0.025em;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.team-marker {
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+  left: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--color-green);
+  color: #07100a;
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-size: calc(11px * var(--ui-font-scale));
+  line-height: 1;
+}

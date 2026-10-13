@@ -1,0 +1,28 @@
+<main class="student-feature-shell">
+  <img *ngIf="isLoading" [src]="loaderPath()" [alt]="leader" />
+  <div class="portrait-grid" *ngIf="leader">
+    <article class="portrait-cell">
+      <img
+        [src]="portraitPath(leader)"
+        [alt]="leader"
+        loading="lazy"
+        (error)="imageError($event)"
+      />
+      <span class="team-marker" aria-hidden="true">★</span>
+      <span class="portrait-name">{{ leader.displayName }}</span>
+    </article>
+  </div>
+  <div class="portrait-grid" *ngIf="configuredHeroes.length">
+    <article class="portrait-cell" *ngFor="let hero of configuredHeroes">
+      <img
+        [src]="portraitPath(hero)"
+        [alt]="hero.displayName"
+        loading="lazy"
+        (error)="imageError($event)"
+      />
+      <span class="team-marker" *ngIf="hero.selected" aria-hidden="true">★</span>
+      <span class="portrait-name">{{ hero.displayName }}</span>
+    </article>
+  </div>
+  <p *ngIf="testError" role="alert">{{ testError }}</p>
+</main>

@@ -1,0 +1,79 @@
+<main class="student-feature-shell">
+  <header class="knockout-header">
+    <h2 class="title">Fase Eliminatoria</h2>
+  </header>
+
+  <ng-container
+    *ngIf="{
+      loading: (loading$ | async) ?? true,
+      error: error$ | async,
+      errorCode: errorCode$ | async,
+      rounds: (rounds$ | async) ?? []
+    } as vm"
+  >
+    <!-- Loading -->
+    <app-loading-state
+      *ngIf="vm.loading"
+      [message]="'Cargando cruces eliminatorios...'"
+    >
+    </app-loading-state>
+
+    <!-- Error -->
+    <app-error-state
+      *ngIf="!vm.loading && vm.error"
+      [message]="vm.error"
+      [messageCode]="vm.errorCode || ''"
+    >
+    </app-error-state>
+
+    <!-- Empty state -->
+    <app-empty-state
+      *ngIf="!vm.loading && !vm.error && vm.rounds.length === 0"
+      [message]="'No hay un Journey activo en este momento. Dirigite a «Simular Batallas» para comenzar una partida.'"
+    >
+    </app-empty-state>
+
+    <!-- Bracket Layout -->
+    <div
+      *ngIf="!vm.loading && !vm.error && vm.rounds.length > 0"
+      class="bracket-grid"
+    >
+      <section
+        *ngFor="let round of vm.rounds; trackBy: trackByRoundId"
+        class="round-column"
+      >
+        <h3 class="round-title">{{ round.name }}</h3>
+
+        <div class="match-list">
+          <div *ngFor="let match of round.matches" class="match-card">
+            <div
+              class="team-slot"
+              [class.winner]="match.isCompleted && match.winnerTeamName === match.homeTeamName"
+            >
+              <span class="team-name">{{ match.homeTeamName }}</span>
+              <span
+                *ngIf="match.isCompleted && match.winnerTeamName === match.homeTeamName"
+                class="winner-badge"
+              >✓</span>
+            </div>
+
+            <div class="divider">
+              <span class="vs-label">VS</span>
+            </div>
+
+            <div
+              class="team-slot"
+              [class.winner]="match.isCompleted && match.winnerTeamName === match.awayTeamName"
+            >
+              <span class="team-name">{{ match.awayTeamName }}</span>
+              <span
+                *ngIf="match.isCompleted && match.winnerTeamName === match.awayTeamName"
+                class="winner-badge"
+              >✓</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </ng-container>
+</main>

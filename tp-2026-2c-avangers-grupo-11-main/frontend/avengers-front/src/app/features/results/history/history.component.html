@@ -1,0 +1,27 @@
+<main class="student-feature-shell">
+  <h1>{{ translate('history', pageState.lang) }}</h1>
+
+  <div [ngSwitch]="pageState.status">
+    <app-loading-state
+      *ngSwitchCase="'loading'"
+      [message]="translate('loading', pageState.lang)"
+    ></app-loading-state>
+
+    <ng-container *ngSwitchCase="'error'">
+      <app-error-state
+        [message]="pageState.error ?? translate('error', pageState.lang)"
+        [messageCode]="pageState.errorCode ?? null"
+      ></app-error-state>
+      <button type="button" (click)="retry()">{{ translate('retry', pageState.lang) }}</button>
+    </ng-container>
+
+    <app-empty-state
+      *ngSwitchCase="'empty'"
+      [message]="translate('empty', pageState.lang)"
+    ></app-empty-state>
+
+    <section *ngSwitchCase="'data'" [attr.aria-label]="translate('history', pageState.lang)">
+      <pre>{{ pageState.data | json }}</pre>
+    </section>
+  </div>
+</main>
